@@ -11,8 +11,8 @@ export class ChatService {
   constructor() {
     this.model = new ChatGoogleGenerativeAI({
       apiKey: envs.GOOGLE_API_KEY,
-      temperature: 0.7,
-      model: 'gemini-2.5-flash-lite',
+      temperature: 0.1,
+      model: envs.GOOGLE_MODEL_NAME,
     });
   }
 

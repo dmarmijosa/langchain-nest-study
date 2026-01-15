@@ -1,7 +1,4 @@
-import {
-  ChatGoogleGenerativeAI,
-  GoogleGenerativeAIEmbeddings,
-} from '@langchain/google-genai';
+import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai';
 import { Injectable } from '@nestjs/common';
 import { envs } from 'src/config/envs';
 
@@ -13,16 +10,16 @@ import { ChatPromptTemplate } from '@langchain/core/prompts';
 import * as path from 'path';
 import { createStuffDocumentsChain } from '@langchain/classic/chains/combine_documents';
 import { createRetrievalChain } from '@langchain/classic/chains/retrieval';
+
 @Injectable()
 export class RagService {
-  private model: ChatGoogleGenerativeAI;
+  private model: ChatOpenAI;
   private vectorStore: MemoryVectorStore;
 
   constructor() {
-    this.model = new ChatGoogleGenerativeAI({
-      apiKey: envs.GOOGLE_API_KEY,
-      temperature: 0.7,
-      model: envs.MODEL_NAME,
+    this.model = new ChatOpenAI({
+      apiKey: envs.OPENAI_API_KEY,
+      model: envs.OPENAI_MODEL_NAME,
     });
   }
 
@@ -46,7 +43,7 @@ export class RagService {
     // MemoryVectorStore guarda los vectores en RAM (se borra al reiniciar)
     this.vectorStore = await MemoryVectorStore.fromDocuments(
       splitsDocs,
-      new GoogleGenerativeAIEmbeddings(),
+      new OpenAIEmbeddings({ apiKey: envs.OPENAI_API_KEY }),
     );
 
     // 4. CREAR EL RETRIEVER (BUSCADOR)
@@ -80,7 +77,13 @@ export class RagService {
       input: question,
     });
 
-    // RAG devuelve un objeto con { input, context, answer }. Retornamos solo la respuesta.
+    //RAG devuelve un objeto con { input, context, answer }. Retornamos solo la respuesta.
     return response.answer;
+
+    // Alternativa: Ejecutar la cadena streamin
+
+    // return await retrievalChain.stream({
+    //   input: question,
+    // });
   }
 }

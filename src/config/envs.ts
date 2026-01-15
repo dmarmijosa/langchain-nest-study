@@ -4,15 +4,19 @@ import * as joi from 'joi';
 
 interface EnvVars {
   GOOGLE_API_KEY: string;
+  OPENAI_API_KEY: string;
   PORT: number;
-  MODEL_NAME: string;
+  GOOGLE_MODEL_NAME: string;
+  OPENAI_MODEL_NAME: string;
 }
 
 const envSchema = joi
   .object({
     GOOGLE_API_KEY: joi.string().required(),
+    OPENAI_API_KEY: joi.string().required(),
     PORT: joi.number().required(),
-    MODEL_NAME: joi.string().required(),
+    GOOGLE_MODEL_NAME: joi.string().required(),
+    OPENAI_MODEL_NAME: joi.string().required(),
   })
   .unknown(true);
 
@@ -26,6 +30,8 @@ const envVars: EnvVars = value as EnvVars;
 
 export const envs = {
   GOOGLE_API_KEY: envVars.GOOGLE_API_KEY,
-  port: envVars.PORT,
-  MODEL_NAME: envVars.MODEL_NAME,
+  GOOGLE_MODEL_NAME: envVars.GOOGLE_MODEL_NAME,
+  PORT: envVars.PORT,
+  OPENAI_API_KEY: envVars.OPENAI_API_KEY,
+  OPENAI_MODEL_NAME: envVars.OPENAI_MODEL_NAME,
 };
