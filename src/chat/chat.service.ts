@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateChatDto } from './dto/create-chat.dto';
-import { ChatOpenAI } from '@langchain/openai';
+import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { envs } from 'src/config/envs';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { StringOutputParser } from '@langchain/core/output_parsers';
 
 @Injectable()
 export class ChatService {
-  private model: ChatOpenAI;
+  private model: ChatGoogleGenerativeAI;
   constructor() {
-    this.model = new ChatOpenAI({
-      openAIApiKey: envs.OPENAI_API_KEY,
+    this.model = new ChatGoogleGenerativeAI({
+      apiKey: envs.GOOGLE_API_KEY,
       temperature: 0.7,
-      modelName: 'gpt-4o',
+      model: 'gemini-2.5-flash-lite',
     });
   }
 
