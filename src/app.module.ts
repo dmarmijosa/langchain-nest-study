@@ -7,6 +7,8 @@ import { AppService } from './app.service';
 //import { MultimodalModule } from './multimodal/multimodal.module';
 import { ChatMemoryModule } from './chat-memory/chat-memory.module';
 
+import { VoiceModule } from './voice/voice.module';
+
 @Module({
   imports: [
     //ChatModule,
@@ -14,6 +16,7 @@ import { ChatMemoryModule } from './chat-memory/chat-memory.module';
     //RagDinamicModule,
     //MultimodalModule,
     ChatMemoryModule,
+    VoiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
