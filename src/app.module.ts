@@ -8,6 +8,8 @@ import { AppService } from './app.service';
 import { ChatMemoryModule } from './chat-memory/chat-memory.module';
 
 import { VoiceModule } from './voice/voice.module';
+import { AgentModule } from './agent/agent.module';
+import { RagDbModule } from './rag-db/rag-db.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { VoiceModule } from './voice/voice.module';
     //MultimodalModule,
     ChatMemoryModule,
     VoiceModule,
+    AgentModule,
+    RagDbModule,
   ],
   controllers: [AppController],
   providers: [AppService],
